@@ -4,6 +4,8 @@ const pug = require("pug");
 const path = require("path");
 const session = require("express-session");
 var bodyParser = require("body-parser");
+const compression = require("compression");
+const RateLimit = require("express-rate-limit");
 
 const app = express();
 
@@ -33,6 +35,12 @@ const resendVerifyLinkRouter = require("./routes/resendVerifyLink.js");
 const addLatestNewsRouter = require("./routes/addLatestNews.js");
 const { get } = require("http");
 
+// Set up rate limiter: maximum of twenty requests per minute
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+
 //Set template engine as pug
 app.set("view engine", "pug");
 
@@ -56,6 +64,12 @@ app.use(
     // cookie: { secure: true },
   })
 );
+
+// Compressing http responses
+app.use(compression());
+
+// Apply rate limiter to all requests
+app.use(limiter);
 
 // Assigning link to webservice
 app.use("/ManCity/News", getNews);

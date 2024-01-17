@@ -48,3 +48,7 @@
 .listItems a:active {
   color: violet;
 }
+
+.navbar > i {
+  display: none;
+}

@@ -4,12 +4,13 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const nodemailer = require("nodemailer");
 const { randomBytes } = require("node:crypto");
+const validateAPI = require("../common/validateAPI");
 const mongoClient = require("mongodb").MongoClient;
 
 const ipAddress = "192.168.1.8";
 const port = 80;
 
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
 async function dbConnection(userdetail) {
@@ -71,16 +72,20 @@ router.post("/", function (req, res, next) {
     accountDetails.password = hash;
     accountDetails.hash = uniqueId;
     accountDetails.isVerified = false;
-    dbConnection(accountDetails).then((response) => {
-      if (response == "Email is valid") {
-        var userEmail = {};
-        userEmail.email = req.body.mail;
-        res.render("verify", { userEmail });
-      } else if (response == "Email already exist") {
-        responseMsg.msg = response;
-        res.render("signUp", { responseMsg });
-      }
-    });
+    dbConnection(accountDetails)
+      .then((response) => {
+        if (response == "Email is valid") {
+          var userEmail = {};
+          userEmail.email = req.body.mail;
+          res.render("verify", { userEmail });
+        } else if (response == "Email already exist") {
+          responseMsg.msg = response;
+          res.render("signUp", { responseMsg });
+        }
+      })
+      .catch((err) => {
+        res.send(`Something went wrong:${err.message}`);
+      });
   });
 });
 

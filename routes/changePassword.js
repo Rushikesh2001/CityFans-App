@@ -1,36 +1,57 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const validateAPI = require("../common/validateAPI");
 const saltRounds = 10;
 const mongoClient = require("mongodb").MongoClient;
 
 const hostname = "localhost";
 const port = 80;
 
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
-async function dbConnection(mail, pass) {
+async function dbConnection(mail, pass, hashCode) {
   try {
     await client.connect();
 
     const database = client.db("mciFanApp");
     const collection = database.collection("accountDetails");
-    const cursor = await collection.updateOne(
-      { email: mail },
-      { $set: { password: pass } }
-    );
-    console.log(cursor);
+    const cursor1 = await collection.find({ hash: hashCode }).toArray();
+    if (cursor1.length == 1) {
+      await collection.updateOne({ hash: hashCode }, { $unset: { hash: 1 } });
+      const cursor2 = await collection.updateOne(
+        { email: mail },
+        { $set: { password: pass } }
+      );
+      return true;
+    } else {
+      return false;
+    }
   } finally {
     await client.close();
   }
 }
 
-router.post("/", function (req, res) {
-  bcrypt.hash(req.body.pwd, saltRounds, async function (err, hash) {
-    await dbConnection(req.body.mail, hash);
-    res.send({ msg: "Success" });
-  });
-});
+router.post(
+  "/",
+  function (req, res, next) {
+    if (!req.query.id) {
+      res.send("Unauthorized access. Please go back to login page !!!!!!");
+    } else {
+      next();
+    }
+  },
+  function (req, res) {
+    bcrypt.hash(req.body.pwd, saltRounds, async function (err, hash) {
+      const res = await dbConnection(req.body.mail, hash, req.query.id);
+      if (res) {
+        res.send({ msg: "Success" });
+      } else {
+        res.send({ msg: "Failure" });
+      }
+    });
+  }
+);
 
 module.exports = router;

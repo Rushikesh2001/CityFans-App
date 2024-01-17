@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const { read } = require("fs");
 const saltRounds = 10;
 
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
 async function dbConnection(userDetail) {

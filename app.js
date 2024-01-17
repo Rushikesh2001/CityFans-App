@@ -6,6 +6,7 @@ const session = require("express-session");
 var bodyParser = require("body-parser");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
+const dotenv = require("dotenv").config();
 
 const app = express();
 
@@ -34,6 +35,7 @@ const changePasswordRouter = require("./routes/changePassword.js");
 const resendVerifyLinkRouter = require("./routes/resendVerifyLink.js");
 const addLatestNewsRouter = require("./routes/addLatestNews.js");
 const { get } = require("http");
+const validateAPI = require("./common/validateAPI.js");
 
 // Set up rate limiter: maximum of twenty requests per minute
 const limiter = RateLimit({
@@ -103,7 +105,7 @@ app.get("/", (req, res) => {
     console.log("Session does not exists");
     // Making api call
     try {
-      fetch(`http://${domain}:80/ManCity/News`, { method: "GET" })
+      fetch(`http://${domain}:${port}/ManCity/News`, { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
           req.session.news = data;
@@ -121,11 +123,6 @@ app.get("/", (req, res) => {
 app.get("/pos", (req, res) => {
   res.status(200);
   res.end(pos);
-});
-
-app.get("/posl", (req, res) => {
-  res.status(200);
-  res.end(players);
 });
 
 app.get("/players", (req, res) => {
@@ -146,6 +143,9 @@ app.get("/quiz", (req, res) => {
     fetch(`http://${domain}:${port}/data/QuickfireQuiz?uid=${req.session.mail}`)
       .then((response) => response.json())
       .then((responseObj) => {
+        if (responseObj.accountId[0].isAdmin) {
+          req.session.isAdmin = true;
+        }
         res.status(200).render("quiz", {
           accountId: responseObj.accountId,
           quizdetail: responseObj.quizdetail,
@@ -182,7 +182,7 @@ app.get("/reset", (req, res) => {
   res.status(200).render("reset", msg);
 });
 
-app.get("/reset-success", (req, res) => {
+app.get("/reset-success", validateAPI, (req, res) => {
   let message = {};
   message.heading = "Reset Password Successfully";
   message.msg =
@@ -195,16 +195,29 @@ app.get("/journey", (req, res) => {
   res.end(journey);
 });
 
-app.get("/addNews", (req, res) => {
-  if (req.session.newsAddedMsg) {
-    let message = {};
-    message.msg = req.session.newsAddedMsg;
-    req.session.newsAddedMsg = "";
-    res.status(200).render("addNews", { message });
-  } else {
-    res.status(200).render("addNews");
+app.get(
+  "/addNews",
+  function (req, res, next) {
+    const { isAdmin, isLoggedIn } = req.session;
+    if (isAdmin && isLoggedIn) {
+      next();
+    } else {
+      res.send("Unauthorized user. Please login!!!!!!");
+    }
+  },
+  (req, res) => {
+    if (req.session.newsAddedMsg) {
+      let message = {};
+      message.msg = req.session.newsAddedMsg;
+      req.session.newsAddedMsg = "";
+      res.status(200).render("addNews", { message });
+    } else {
+      res.status(200).render("addNews");
+    }
   }
-});
+);
+
+//Securing endpoints
 
 //App is listening to request
 app.listen(80, () => {

@@ -1,8 +1,9 @@
 const express = require("express");
+const validateAPI = require("../common/validateAPI");
 const router = express.Router();
 const mongoClient = require("mongodb").MongoClient;
 
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
 async function dbConnection(quizObj, mail) {
@@ -32,7 +33,7 @@ async function dbConnection(quizObj, mail) {
   }
 }
 
-router.post("/", function (req, res) {
+router.post("/", validateAPI, function (req, res) {
   const userQuizDetail = {
     name: req.body.name,
     score: req.body.score,

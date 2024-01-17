@@ -81,3 +81,12 @@ var loadNewsBoard = (link, imgLink, title) => {
   document.querySelector("#newsHeadLine").innerText = title;
   document.querySelector("#articleLink").setAttribute("href", `${link}`);
 };
+
+//Display mobile menu
+let right = parseInt(getComputedStyle(document.getElementById("menu")).right);
+const showMobileMenu = () => {
+  let nav = document.getElementById("menu");
+  let ct = parseInt(getComputedStyle(document.getElementById("menu")).right);
+  nav.style.transform = `translateX(${right}px)`;
+  right = right >= 0 ? ct : 0;
+};

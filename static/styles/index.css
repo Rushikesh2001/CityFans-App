@@ -20,17 +20,19 @@
   height: 100%;
   width: 100%;
   border: 1px solid none;
+  align-items: end;
+  padding: 17px 20px;
   box-sizing: border-box;
   position: absolute;
   left: 0;
   top: 0;
-  /* transition: transform 1s ease; */
 }
 
 .latestNews .contentBox:nth-child(1) {
   background-image: url("../images/citySupporters_4K.jpg");
   background-size: cover;
   background-position: center -100px;
+  background-repeat: no-repeat;
 }
 
 .latestNews .contentBox:nth-child(2) {
@@ -38,6 +40,7 @@
   background-image: url("https://www.thesun.co.uk/wp-content/uploads/2023/06/ataturk-olympic-stadium-manchester-city-824245238.jpg");
   background-size: cover;
   background-position: center -245px;
+  background-repeat: no-repeat;
 }
 
 .latestNews .contentBox:nth-child(3) {
@@ -45,6 +48,7 @@
   background-image: url("../images/faCup_4K.jpg");
   background-size: cover;
   background-position: center -181px;
+  background-repeat: no-repeat;
 }
 
 .latestNews .contentBox:nth-child(4) {
@@ -52,6 +56,7 @@
   background-image: url("https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/bltd4ad9916c2bf2132/646ab7f76834c748287c2719/GettyImages-1492081112.jpg?auto=webp&format=pjpg&width=3840&quality=60");
   background-size: cover;
   background-position: center -81px;
+  background-repeat: no-repeat;
 }
 
 .fadeOut {
@@ -97,10 +102,6 @@
   font-weight: bolder;
   text-shadow: 4px 3px #2f1695;
   font-family: system-ui;
-  position: absolute;
-  bottom: 33px;
-  left: 41px;
-  z-index: 15;
 }
 
 /* Appreciation section  */
@@ -159,6 +160,10 @@
   box-sizing: border-box;
   border: 1px solid red;
   padding: 20px;
+}
+
+#news h3 {
+  display: none;
 }
 
 #newsBoard {

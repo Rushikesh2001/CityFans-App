@@ -7,7 +7,7 @@ const { randomBytes } = require("node:crypto");
 const ipAddress = "192.168.1.8";
 const port = 80;
 
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
 async function dbConnection(mail, uid) {
@@ -58,21 +58,29 @@ async function smtpConnection(toMailId) {
 
     console.log("Message sent: %s", info.messageId);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 router.post("/", function (req, res) {
   var message = {};
-  dbConnection(req.body.mail, uniqueId).then((response) => {
-    if (response) {
-      message.msg = "success";
-      res.send(JSON.stringify(message));
-    } else {
-      message.msg = "error";
-      res.send(JSON.stringify(message));
-    }
-  });
+  if (req.body.mail) {
+    dbConnection(req.body.mail, uniqueId)
+      .then((response) => {
+        if (response) {
+          message.msg = "success";
+          res.send(JSON.stringify(message));
+        } else {
+          message.msg = "error";
+          res.send(JSON.stringify(message));
+        }
+      })
+      .catch((err) => {
+        res.send(`Something went wrong:${err.message}`);
+      });
+  } else {
+    res.send({ msg: "error" });
+  }
 });
 
 module.exports = router;

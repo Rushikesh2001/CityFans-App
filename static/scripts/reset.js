@@ -1,4 +1,4 @@
-const fnChangePassword = (mail) => {
+const fnChangePassword = (mail, id) => {
   let pwd = document.getElementsByName("pwd")[0].value;
   let cpwd = document.getElementsByName("cpwd")[0].value;
 
@@ -62,7 +62,7 @@ const fnChangePassword = (mail) => {
     reqLength(cpwd)
   ) {
     if (pwd === cpwd) {
-      fnCallApi(cpwd, mail);
+      fnCallApi(cpwd, mail, id);
     } else {
       document.querySelector("#matchError").style.display = "flex";
     }
@@ -73,8 +73,8 @@ const fnChangePassword = (mail) => {
 
 const domain = "localhost";
 const port = 80;
-const fnCallApi = (password, email) => {
-  fetch(`http://${domain}:${port}/change/user/password`, {
+const fnCallApi = (password, email, id) => {
+  fetch(`http://${domain}:${port}/change/user/password?id=${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

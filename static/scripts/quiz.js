@@ -63,9 +63,8 @@ const loadContent = (event) => {
 };
 
 let quizNo;
-const hostName = window.location.hostname;
-const protocol = window.location.protocol;
-const appUrl = `${protocol}//${hostName}`;
+const { hostname, protocol } = window.location;
+const appUrl = `${protocol}//${hostname}`;
 const loadQuiz = async (no) => {
   quizNo = no;
   let res = await fetch(`${appUrl}/data/QuickfireQuiz`, {

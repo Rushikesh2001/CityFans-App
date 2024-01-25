@@ -71,9 +71,8 @@ const fnChangePassword = (mail, id) => {
   }
 };
 
-const hostName = window.location.hostname;
-const protocol = window.location.protocol;
-const appUrl = `${protocol}//${hostName}`;
+const { hostname, protocol } = window.location;
+const appUrl = `${protocol}//${hostname}`;
 const fnCallApi = (password, email, id) => {
   fetch(`${appUrl}/change/user/password?id=${id}`, {
     method: "POST",

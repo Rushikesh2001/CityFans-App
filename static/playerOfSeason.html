@@ -6,6 +6,21 @@
     <link rel="stylesheet" href="./styles/playerOfSeason.css" />
     <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/footer.css" />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/playerOfSeason.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/header.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/footer.css"
+    />
 
     <title>Erling Haaland | Player of the Season</title>
   </head>
@@ -13,7 +28,7 @@
     <header>
       <nav class="navbar">
         <p>CityFans</p>
-        <ul>
+        <ul id="menu">
           <li class="listItems">
             <a href="/">Home</a>
           </li>
@@ -27,6 +42,7 @@
             <a href="/quiz">Quickfire Quiz</a>
           </li>
         </ul>
+        <i onclick="showMobileMenu()" class="fas fa-bars"></i>
       </nav>
     </header>
     <section class="goals">

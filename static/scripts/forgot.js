@@ -1,6 +1,5 @@
-const hostName = window.location.hostname;
-const protocol = window.location.protocol;
-const appUrl = `${protocol}//${hostName}`;
+const { hostname, protocol } = window.location;
+const appUrl = `${protocol}//${hostname}`;
 const fnCheckMail = async () => {
   try {
     let email = document.getElementsByName("email")[0].value;

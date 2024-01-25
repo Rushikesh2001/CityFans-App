@@ -1,0 +1,45 @@
+.goals::before {
+  background-size: cover;
+  background-position: center 0px;
+}
+
+.goals iframe {
+  opacity: 1;
+  width: 95%;
+}
+
+.goals .heading {
+  width: 250px;
+}
+
+.stats {
+  grid-template-areas:
+    "stats"
+    "records"
+    "attack"
+    "teamPlay";
+  padding: 42px 5px 5px 5px;
+}
+
+#seasonStats {
+  width: fit-content;
+  height: 280px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 109px 109px;
+  grid-gap: 3rem;
+  justify-content: start;
+}
+
+.statBox {
+  height: 100px;
+  width: 149px;
+}
+
+.statValue {
+  font-size: 50px;
+}
+
+.statDesc {
+  font-size: 18px;
+}

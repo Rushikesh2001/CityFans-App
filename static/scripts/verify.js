@@ -1,6 +1,5 @@
-const hostName = window.location.hostname;
-const protocol = window.location.protocol;
-const appUrl = `${protocol}//${hostName}`;
+const { hostname, protocol } = window.location;
+const appUrl = `${protocol}//${hostname}`;
 const fnResendLink = async (eve, email) => {
   try {
     eve.preventDefault();

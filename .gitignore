@@ -1,1 +1,7 @@
+#ignoring node modules
+#to get this folder run following command : npm install or npm i
 node_modules
+
+# Environment variables file
+#Not included for security reasons
+.env

@@ -1,5 +1,4 @@
 const express = require("express");
-const validateAPI = require("../common/validateAPI");
 const router = express.Router();
 const mongoClient = require("mongodb").MongoClient;
 
@@ -27,7 +26,7 @@ async function dbConnection(mail) {
   }
 }
 
-router.get("/", validateAPI, function (req, res) {
+router.get("/", function (req, res) {
   dbConnection(req.query.uid).then((response) => {
     res.send(JSON.stringify(response));
   });

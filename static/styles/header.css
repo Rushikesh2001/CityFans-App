@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   height: 72px;
-  width: 1349px;
+  width: 100%;
   flex-direction: row;
   padding-left: 15px;
   border: 1px solid none;

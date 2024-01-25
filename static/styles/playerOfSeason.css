@@ -8,7 +8,7 @@
 .goals {
   display: flex;
   height: 632px;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@
 .stats {
   display: grid;
   height: fit-content;
-  width: 1349px;
+  width: 100%;
   background-color: white;
   box-sizing: border-box;
   padding: 42px 10px 10px 10px;

@@ -10,14 +10,8 @@ const dotenv = require("dotenv").config();
 
 const app = express();
 
-//Declaring port number
-const port = 80;
-
 //Declaring domain
-const domain = "localhost";
-
-//Including player list
-const playerList = require("./static/scripts/playerList.js");
+const appUrl = process.env.APP_URL;
 
 //Including the webservice
 const getNews = require("./routes/getNews.js");
@@ -105,7 +99,7 @@ app.get("/", (req, res) => {
     console.log("Session does not exists");
     // Making api call
     try {
-      fetch(`http://${domain}:${port}/ManCity/News`, { method: "GET" })
+      fetch(`${appUrl}/ManCity/News`, { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
           req.session.news = data;
@@ -126,7 +120,7 @@ app.get("/pos", (req, res) => {
 });
 
 app.get("/players", (req, res) => {
-  fetch(`http://${domain}:${port}/ManCity/data/players`, { method: "GET" })
+  fetch(`${appUrl}/ManCity/data/players`, { method: "GET" })
     .then((response) => response.json())
     .then((playerList) => {
       res.status(200).render("players", { playerList });
@@ -140,7 +134,7 @@ app.get("/login", (req, res) => {
 app.get("/quiz", (req, res) => {
   // console.log(req.query.uid);
   if (req.session.isLoggedIn) {
-    fetch(`http://${domain}:${port}/data/QuickfireQuiz?uid=${req.session.mail}`)
+    fetch(`${appUrl}/data/QuickfireQuiz?uid=${req.session.mail}`)
       .then((response) => response.json())
       .then((responseObj) => {
         if (responseObj.accountId[0].isAdmin) {
@@ -182,7 +176,7 @@ app.get("/reset", (req, res) => {
   res.status(200).render("reset", msg);
 });
 
-app.get("/reset-success", validateAPI, (req, res) => {
+app.get("/reset-success", (req, res) => {
   let message = {};
   message.heading = "Reset Password Successfully";
   message.msg =
@@ -222,5 +216,5 @@ app.get(
 //App is listening to request
 app.listen(80, () => {
   console.log("App is listening......");
-  console.log(`Server is live at http://localhost:${port}`);
+  console.log(`Server is live at ${appUrl}`);
 });

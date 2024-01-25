@@ -71,10 +71,11 @@ const fnChangePassword = (mail, id) => {
   }
 };
 
-const domain = "localhost";
-const port = 80;
+const hostName = window.location.hostname;
+const protocol = window.location.protocol;
+const appUrl = `${protocol}//${hostName}`;
 const fnCallApi = (password, email, id) => {
-  fetch(`http://${domain}:${port}/change/user/password?id=${id}`, {
+  fetch(`${appUrl}/change/user/password?id=${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

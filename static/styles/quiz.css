@@ -38,7 +38,7 @@
 #heading {
   display: flex;
   height: 164px;
-  width: 1349px;
+  width: 100%;
   border: 1px solid none;
   align-items: center;
   justify-content: center;
@@ -59,19 +59,18 @@
   display: flex;
   height: fit-content;
   min-height: 400px;
-  width: 1349px;
+  width: 100%;
   border: 1px solid none;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  padding: 0 64px;
 }
 
 #titleContainer {
   display: flex;
   height: 50px;
   border: 1px solid #e24eff;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   align-items: center;
   padding: 0 50px;
@@ -102,7 +101,7 @@
   border: 1px solid none;
   border-spacing: unset;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
   margin: 15px 0;
 }
 
@@ -150,7 +149,7 @@
 
 #quizResult {
   display: none;
-  width: 100%;
+  width: 90%;
   border: 1px solid none;
   margin: 15px 0;
   border-collapse: collapse;

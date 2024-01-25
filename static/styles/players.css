@@ -7,7 +7,7 @@
 #pageHeader {
   display: flex;
   height: 200px;
-  width: 1349px;
+  width: 100%;
   align-items: center;
   box-sizing: border-box;
   background: repeating-linear-gradient(0deg, #3838d7, lightblue, #3838d7);
@@ -27,7 +27,7 @@
 #players {
   display: flex;
   height: fit-content;
-  width: 1349px;
+  width: 100%;
   flex-direction: column;
   padding: 20px 5px 30px 5px;
   box-sizing: border-box;
@@ -39,7 +39,7 @@
   display: flex;
   min-height: 400px;
   height: fit-content;
-  width: 1261px;
+  width: 94%;
   border: 1px solid none;
   flex-direction: column;
   padding: 15px 15px;

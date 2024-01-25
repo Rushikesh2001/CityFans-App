@@ -5,9 +5,6 @@ const validateAPI = require("../common/validateAPI");
 const saltRounds = 10;
 const mongoClient = require("mongodb").MongoClient;
 
-const hostname = "localhost";
-const port = 80;
-
 const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
 
@@ -44,8 +41,8 @@ router.post(
   },
   function (req, res) {
     bcrypt.hash(req.body.pwd, saltRounds, async function (err, hash) {
-      const res = await dbConnection(req.body.mail, hash, req.query.id);
-      if (res) {
+      const response = await dbConnection(req.body.mail, hash, req.query.id);
+      if (response) {
         res.send({ msg: "Success" });
       } else {
         res.send({ msg: "Failure" });

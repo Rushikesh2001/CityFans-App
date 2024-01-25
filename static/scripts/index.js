@@ -1,39 +1,3 @@
-// let achievement = document.getElementsByClassName("achievement");
-
-// // setInterval(() => {
-// //   console.log(window.scrollY);
-// // }, 1000);
-// window.addEventListener("scroll", () => {
-//   if (window.scrollY === 701) {
-//     var x = 0;
-//     setInterval(trophies, 500);
-//     console.log(x);
-//     function trophies() {
-//       if (x < 5) {
-//         achievement[0].innerHTML = x;
-//         x += 1;
-//       } else {
-//         const intervalID = setInterval(trophies, 500);
-//         clearInterval(intervalID);
-//       }
-//     }
-//   }
-// });
-
-/*window.addEventListener("scroll", () => {
-  if (window.scrollY >= 155 && window.scrollY <= 1144) {
-    let st19 = document.styleSheets[0].cssRules[19];
-    let value = st19.style.backgroundPositionY;
-    let newValue = "";
-    for (let i = 0; i < 4; i++) {
-      newValue += value[i];
-    }
-    newValue = parseInt(newValue);
-    updateValue = newValue - 1;
-    st19.style.backgroundPositionY = `${updateValue}px`;
-  }
-});*/
-
 let socialIcon = document.getElementsByClassName("fab");
 
 let divIcon = document.getElementsByClassName("icons");
@@ -90,3 +54,18 @@ const showMobileMenu = () => {
   nav.style.transform = `translateX(${right}px)`;
   right = right >= 0 ? ct : 0;
 };
+
+//News Side Bar
+var sideBar = document.getElementById("responsiveSideBar");
+var leftIcon = document.querySelector(".fa-caret-left");
+var newsList = document.getElementById("newsList");
+let open = false;
+let rpos = parseInt(getComputedStyle(newsList).right);
+sideBar.addEventListener("click", () => {
+  leftIcon.style.transform = open ? "rotateY(0deg)" : "rotateY(180deg)";
+  let ctpos = parseInt(getComputedStyle(newsList).right);
+  newsList.style.transform = `translateX(${rpos}px)`;
+  sideBar.style.transform = `translateX(${rpos}px)`;
+  rpos = rpos >= 0 ? ctpos : 0;
+  open = !open;
+});

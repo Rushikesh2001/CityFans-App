@@ -3,7 +3,7 @@
 footer {
   display: flex;
   height: 250px;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   flex-direction: column;
   border: 1px solid none;
@@ -40,7 +40,7 @@ footer {
 .main-footer ul {
   display: flex;
   height: 50px;
-  width: 534px;
+  width: fit-content;
   border: 1px solid none;
   flex-direction: row;
   align-items: center;

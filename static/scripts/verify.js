@@ -1,9 +1,10 @@
-const domain = "localhost";
-const port = 80;
+const hostName = window.location.hostname;
+const protocol = window.location.protocol;
+const appUrl = `${protocol}//${hostName}`;
 const fnResendLink = async (eve, email) => {
   try {
     eve.preventDefault();
-    let res = await fetch(`http://${domain}:${port}/resend/verifyLink`, {
+    let res = await fetch(`${appUrl}/resend/verifyLink`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

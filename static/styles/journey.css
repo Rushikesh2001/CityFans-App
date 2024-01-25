@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  width: 1246px;
+  width: 92%;
   border-left: 2px solid #dbf315;
   margin: 20px 0 20px 71px;
   box-shadow: -7px 0px 3px -3px white;

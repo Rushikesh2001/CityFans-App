@@ -4,8 +4,7 @@ const mongoClient = require("mongodb").MongoClient;
 const nodemailer = require("nodemailer");
 const { randomBytes } = require("node:crypto");
 
-const ipAddress = "192.168.1.8";
-const port = 80;
+const appUrl = process.env.APP_URL;
 
 const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
@@ -53,7 +52,7 @@ async function smtpConnection(toMailId) {
       from: "rushikeshpalekar91@gmail.com", // sender address
       to: `${toMailId}`, // list of receivers
       subject: "CityFans - Reset Password", // Subject line
-      html: `Welcome<br/>CityFans!<br/>You must follow this link to reset your password:<br/><a href='http://${ipAddress}:${port}/reset/password?id=${uniqueId}'>http://${ipAddress}:${port}/reset/password?id=${uniqueId}<a/>`, // html body
+      html: `Welcome<br/>CityFans!<br/>You must follow this link to reset your password:<br/><a href='${appUrl}/reset/password?id=${uniqueId}'>${appUrl}/reset/password?id=${uniqueId}<a/>`, // html body
     });
 
     console.log("Message sent: %s", info.messageId);

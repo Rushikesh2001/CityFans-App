@@ -1,9 +1,10 @@
-const domain = "localhost";
-const port = 80;
+const hostName = window.location.hostname;
+const protocol = window.location.protocol;
+const appUrl = `${protocol}//${hostName}`;
 const fnCheckMail = async () => {
   try {
     let email = document.getElementsByName("email")[0].value;
-    let res = await fetch(`http://${domain}:${port}/send/resetLink`, {
+    let res = await fetch(`${appUrl}/send/resetLink`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +34,7 @@ const fnCheckMail = async () => {
 
 const resendMail = async (mail) => {
   try {
-    let res = await fetch(`http://${domain}:${port}/send/resetLink`, {
+    let res = await fetch(`${appUrl}/send/resetLink`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

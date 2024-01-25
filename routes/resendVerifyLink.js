@@ -4,8 +4,7 @@ const nodemailer = require("nodemailer");
 const { randomBytes } = require("node:crypto");
 const mongoClient = require("mongodb").MongoClient;
 
-const ipAddress = "192.168.1.8";
-const port = 80;
+const appUrl = process.env.APP_URL;
 
 const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
@@ -49,7 +48,7 @@ async function smtpConnection(toMailId) {
       from: "rushikeshpalekar91@gmail.com", // sender address
       to: `${toMailId}`, // list of receivers
       subject: "CityFans - Confirm E-mail Address", // Subject line
-      html: `Welcome<br/>Thanks for signing up with CityFans!<br/>You must follow this link to activate your account:<br/><a href='http://${ipAddress}:${port}/accountVerify?id=${uniqueId}'>http://${ipAddress}:${port}/accountVerify?id=${uniqueId}<a/>`, // html body
+      html: `Welcome<br/>Thanks for signing up with CityFans!<br/>You must follow this link to activate your account:<br/><a href='${appUrl}/accountVerify?id=${uniqueId}'>${appUrl}/accountVerify?id=${uniqueId}<a/>`, // html body
     });
 
     console.log("Message sent: %s", info.messageId);

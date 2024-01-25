@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoClient = require("mongodb").MongoClient;
 
-const hostname = "localhost";
-const port = 80;
+const appUrl = process.env.APP_URL;
 
 const uri = process.env.DB_CONN_URL;
 const client = new mongoClient(uri);
@@ -40,13 +39,13 @@ router.get(
       let data;
       if (response) {
         data = JSON.stringify({ mail: response, id: req.query.id });
-        res.redirect(`http://${hostname}:${port}/reset?data=${data}`);
+        res.redirect(`${appUrl}/reset?data=${data}`);
       } else {
         message.heading = "Error";
         message.msg =
           "An error occurred while verifying your email. Please consider to apply for another password reset link.";
         data = JSON.stringify({ message });
-        res.redirect(`http://${hostname}:${port}/reset?data=${data}`);
+        res.redirect(`${appUrl}/reset?data=${data}`);
       }
     });
   }

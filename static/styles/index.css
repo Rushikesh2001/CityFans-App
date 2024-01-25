@@ -7,7 +7,7 @@
 .latestNews {
   display: flex;
   height: 578px;
-  width: 1349px;
+  width: 100%;
   flex-direction: row;
   border: 1px solid none;
   box-sizing: border-box;
@@ -108,6 +108,7 @@
 #appreciation {
   display: flex;
   height: 138px;
+  width: 100%;
   align-items: center;
   position: relative;
   background-color: #0e0eb1;
@@ -156,13 +157,17 @@
   display: flex;
   flex-direction: row;
   height: 500px;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid red;
   padding: 20px;
 }
 
 #news h3 {
+  display: none;
+}
+
+#news #responsiveSideBar {
   display: none;
 }
 
@@ -277,7 +282,7 @@
 .about {
   display: flex;
   height: 1027px;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid none;
   align-items: center;
@@ -315,7 +320,7 @@
 .info {
   display: flex;
   height: 227px;
-  width: 1349px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   border: 1px solid white;
@@ -333,7 +338,7 @@
   text-align: center;
   font-family: none;
   line-height: 30px;
-  width: 1061px;
+  width: 81%;
 }
 
 /* Player of the Season section  */
@@ -341,7 +346,7 @@
 .playerOfTheSeason {
   display: flex;
   height: 500px;
-  width: 1349px;
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid none;
   flex-direction: row;

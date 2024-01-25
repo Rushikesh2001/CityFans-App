@@ -63,9 +63,12 @@ const loadContent = (event) => {
 };
 
 let quizNo;
+const hostName = window.location.hostname;
+const protocol = window.location.protocol;
+const appUrl = `${protocol}//${hostName}`;
 const loadQuiz = async (no) => {
   quizNo = no;
-  let res = await fetch(`http://${domain}:${port}/data/QuickfireQuiz`, {
+  let res = await fetch(`${appUrl}/data/QuickfireQuiz`, {
     method: "GET",
   });
   res = await res.json();
@@ -167,55 +170,56 @@ const handleChange = (event) => {
   }
 };
 
-const domain = "localhost";
-const port = 80;
-
 const submitQuiz = async (email) => {
-  let res = await fetch(`http://${domain}:${port}/data/QuickfireQuiz`, {
-    method: "GET",
-  });
-  res = await res.json();
-  let quizAns = await res.quizdetail[quizNo].answers;
-  let quizName = await res.quizdetail[quizNo].name;
-  let marks = 0;
-  for (let val in userAns) {
-    if (userAns[val] === quizAns[val]) {
-      marks += 1;
+  try {
+    let res = await fetch(`${appUrl}/data/QuickfireQuiz`, {
+      method: "GET",
+    });
+    res = await res.json();
+    let quizAns = await res.quizdetail[quizNo].answers;
+    let quizName = await res.quizdetail[quizNo].name;
+    let marks = 0;
+    for (let val in userAns) {
+      if (userAns[val] === quizAns[val]) {
+        marks += 1;
+      }
     }
+    let dateObj = new Date();
+    const date =
+      dateObj.getDate() +
+      "/" +
+      parseInt(dateObj.getMonth() + 1) +
+      "/" +
+      dateObj.getFullYear() +
+      ", " +
+      dateObj.getHours() +
+      ":" +
+      dateObj.getMinutes() +
+      ":" +
+      dateObj.getSeconds();
+    // fetch to web service to add the details to the mongodb
+    let result = await fetch(`${appUrl}/user/data/quiz`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mail: email,
+        name: quizName,
+        score: marks,
+        date: date,
+      }),
+    });
+    var scoreBox = document.querySelector("#scoreDialog");
+    var confirmBox = document.querySelector("#confirm");
+    if (scoreBox.style.display != "flex") {
+      scoreBox.style.display = "flex";
+      confirmBox.style.display = "none";
+    }
+    document.querySelector("#score").innerText = `You scored ${marks} marks`;
+  } catch (ex) {
+    console.log("Quiz", ex);
   }
-  let dateObj = new Date();
-  const date =
-    dateObj.getDate() +
-    "/" +
-    parseInt(dateObj.getMonth() + 1) +
-    "/" +
-    dateObj.getFullYear() +
-    ", " +
-    dateObj.getHours() +
-    ":" +
-    dateObj.getMinutes() +
-    ":" +
-    dateObj.getSeconds();
-  // fetch to web service to add the details to the mongodb
-  let result = await fetch(`http://${domain}:${port}/user/data/quiz`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      mail: email,
-      name: quizName,
-      score: marks,
-      date: date,
-    }),
-  });
-  var scoreBox = document.querySelector("#scoreDialog");
-  var confirmBox = document.querySelector("#confirm");
-  if (scoreBox.style.display != "flex") {
-    scoreBox.style.display = "flex";
-    confirmBox.style.display = "none";
-  }
-  document.querySelector("#score").innerText = `You scored ${marks} marks`;
 };
 
 const fnAnswers = (answers) => {

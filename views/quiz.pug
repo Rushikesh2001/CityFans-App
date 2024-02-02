@@ -6,6 +6,11 @@
     link(rel="stylesheet" href="styles/header.css")
     link(rel="stylesheet" href="styles/footer.css")
     link(rel="stylesheet" href="styles/quiz.css")
+    link(rel="stylesheet", media="screen and (min-width: 320px) and (max-width: 425px)", href="./styles/mobile/header.css")
+    link(rel="stylesheet", media="screen and (min-width: 320px) and (max-width: 425px)", href="./styles/mobile/footer.css")
+    link(rel="stylesheet", media="screen and (min-width: 320px) and (max-width: 425px)", href="./styles/mobile/quiz.css")
+    link(rel="stylesheet", media="screen and (min-width: 426px) and (max-width: 768px)", href="./styles/tablet/header.css")
+    link(rel="stylesheet", media="screen and (min-width: 426px) and (max-width: 768px)", href="./styles/tablet/footer.css")
     link(href="https://fonts.googleapis.com/css2?family=Raleway&family=Kenia&family=Roboto&display=swap" rel="stylesheet")
     <title>Quiz</title>
   </head>
@@ -13,7 +18,7 @@
     <header>
       <nav class="navbar">
         <p>CityFans</p>
-        <ul>
+        <ul id="menu">
           <li class="listItems">
             <a href="/" target="_blank">Home</a>
           </li>
@@ -27,6 +32,7 @@
             a(href='/quiz') Quickfire Quiz
           </li>
         </ul>
+        i(onclick="showMobileMenu()" class="fas fa-bars")
         if (accountId[0].isAdmin) 
           a(href="/addNews", target="_blank", id="news") Add News
         <a id="logout" href="/logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a>

@@ -8,6 +8,36 @@
     <link rel="stylesheet" href="styles/footer.css" />
     <link rel="stylesheet" href="styles/journey.css" />
     <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/journey.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/header.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:320px) and (max-width:425px)"
+      href="./styles/mobile/footer.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:426px) and (max-width:768px)"
+      href="./styles/tablet/journey.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:426px) and (max-width:768px)"
+      href="./styles/tablet/header.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:426px) and (max-width:768px)"
+      href="./styles/tablet/footer.css"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap"
       rel="stylesheet"
     />
@@ -16,7 +46,7 @@
     <header>
       <nav class="navbar">
         <p>CityFans</p>
-        <ul>
+        <ul id="menu">
           <li class="listItems">
             <a href="/">Home</a>
           </li>
@@ -30,6 +60,7 @@
             <a href="/quiz">Quickfire Quiz</a>
           </li>
         </ul>
+        <i onclick="showMobileMenu()" class="fas fa-bars"></i>
       </nav>
     </header>
     <div id="container">

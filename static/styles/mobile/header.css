@@ -46,3 +46,12 @@
 .listItems a {
   color: #1a0a93;
 }
+
+#news {
+  right: 82px;
+  font-size: 17px;
+}
+
+#logout {
+  right: 50px;
+}

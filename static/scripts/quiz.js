@@ -82,6 +82,11 @@ const loadQuiz = async (no) => {
     maindiv.removeChild(maindiv.getElementsByTagName("button")[3]);
   }
 
+  var mask = document.getElementById("mask");
+  if (mask.style.display != "none") {
+    mask.style.display = "none";
+  }
+
   let mainlist = document.createElement("ol");
   mainlist.setAttribute("id", "questions");
 
@@ -150,6 +155,7 @@ const loadQuiz = async (no) => {
 const fnSubmit = () => {
   document.querySelector("#mask").style.display = "flex";
   document.querySelector("#confirm").style.display = "flex";
+  document.querySelector("#scoreDialog").style.display = "none";
 };
 
 let userAns = {};
@@ -250,3 +256,12 @@ function updateIndex(index) {
   }
   return 0;
 }
+
+//Display mobile menu
+let right = parseInt(getComputedStyle(document.getElementById("menu")).right);
+const showMobileMenu = () => {
+  let nav = document.getElementById("menu");
+  let ct = parseInt(getComputedStyle(document.getElementById("menu")).right);
+  nav.style.transform = `translateX(${right}px)`;
+  right = right >= 0 ? ct : 0;
+};

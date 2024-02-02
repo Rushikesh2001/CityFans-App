@@ -124,7 +124,19 @@ body {
   align-items: center;
   border: 1px solid #67bbbb;
   border-radius: 4px;
-  padding: 0 5px;
+  padding: 5px;
+  background-color: #f0f8ff8f;
+  color: red;
+  margin-bottom: 10px;
+}
+
+#mailError {
+  display: none;
+  width: 201px;
+  align-items: center;
+  border: 1px solid #67bbbb;
+  border-radius: 4px;
+  padding: 5px;
   background-color: #f0f8ff8f;
   color: red;
   margin-bottom: 10px;

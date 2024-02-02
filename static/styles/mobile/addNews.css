@@ -1,0 +1,25 @@
+#formHeading {
+  font-size: 30px;
+}
+
+form {
+  width: 97%;
+  box-sizing: border-box;
+}
+
+form > label {
+  font-size: 18px;
+}
+
+form > input {
+  height: 20px;
+}
+
+#chooseFile > p {
+  font-size: 18px;
+}
+
+#fileSelect {
+  width: 100%;
+  left: 0;
+}

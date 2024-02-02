@@ -89,3 +89,12 @@ submit.addEventListener("click", () => {
     nofile.style.display = "flex";
   }
 });
+
+//Display mobile menu
+let right = parseInt(getComputedStyle(document.getElementById("menu")).right);
+const showMobileMenu = () => {
+  let nav = document.getElementById("menu");
+  let ct = parseInt(getComputedStyle(document.getElementById("menu")).right);
+  nav.style.transform = `translateX(${right}px)`;
+  right = right >= 0 ? ct : 0;
+};

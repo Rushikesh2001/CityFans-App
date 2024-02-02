@@ -2,64 +2,18 @@ const fnChangePassword = (mail, id) => {
   let pwd = document.getElementsByName("pwd")[0].value;
   let cpwd = document.getElementsByName("cpwd")[0].value;
 
-  function spChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (
-        33 <= code <= 47 ||
-        58 <= code <= 64 ||
-        91 <= code <= 96 ||
-        123 <= code <= 126
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function upperCaseChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (65 <= code <= 90) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function lowerCaseChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (97 <= code <= 122) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function numChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (48 <= code <= 57) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function reqLength(str) {
-    if (str.length >= 8) {
-      return true;
-    }
-    return false;
-  }
+  const minOneUpperCase = /[A-Z]{1,}/.test(cpwd);
+  const minOneLowerCase = /[a-z]{1,}/.test(cpwd);
+  const minOneSpChar = /[@#%$&!^*]{1,}/.test(cpwd);
+  const minOneNum = /[0-9]{1,}/.test(cpwd);
+  const min8Char = /.{8,}/.test(cpwd);
 
   if (
-    spChar(cpwd) &&
-    upperCaseChar(cpwd) &&
-    lowerCaseChar(cpwd) &&
-    numChar(cpwd) &&
-    reqLength(cpwd)
+    minOneSpChar &&
+    minOneUpperCase &&
+    minOneLowerCase &&
+    minOneNum &&
+    min8Char
   ) {
     if (pwd === cpwd) {
       fnCallApi(cpwd, mail, id);

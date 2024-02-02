@@ -1,74 +1,42 @@
 const fnPwdValidate = (e) => {
-  const { id, value } = e?.target;
   let pwd = document.getElementsByName("password")[0].value;
   let cpwd = document.getElementsByName("confirmPassword")[0].value;
 
-  function spChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (
-        33 <= code <= 47 ||
-        58 <= code <= 64 ||
-        91 <= code <= 96 ||
-        123 <= code <= 126
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function upperCaseChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (65 <= code <= 90) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function lowerCaseChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (97 <= code <= 122) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function numChar(str) {
-    for (let ind in str) {
-      let code = str.charCodeAt(ind);
-      if (48 <= code <= 57) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function reqLength(str) {
-    if (str.length >= 8) {
-      return true;
-    }
-    return false;
-  }
+  const minOneUpperCase = /[A-Z]{1,}/.test(cpwd);
+  const minOneLowerCase = /[a-z]{1,}/.test(cpwd);
+  const minOneSpChar = /[@#%$&!^*]{1,}/.test(cpwd);
+  const minOneNum = /[0-9]{1,}/.test(cpwd);
+  const min8Char = /.{8,}/.test(cpwd);
 
   if (
-    spChar(value) &&
-    upperCaseChar(value) &&
-    lowerCaseChar(value) &&
-    numChar(value) &&
-    reqLength(value)
+    minOneSpChar &&
+    minOneUpperCase &&
+    minOneLowerCase &&
+    minOneNum &&
+    min8Char
   ) {
     if (pwd === cpwd) {
       document.querySelector("#matchError").style.display = "none";
       document.querySelector("#error").style.display = "none";
+      return true;
     } else {
+      document.querySelector("#error").style.display = "none";
       document.querySelector("#matchError").style.display = "flex";
     }
   } else {
     document.querySelector("#error").style.display = "flex";
+  }
+};
+
+const isDetailValid = (eve) => {
+  eve.preventDefault();
+  var mail = document.getElementsByName("mail")[0].value;
+  const mailValid = /^[a-zA-Z0-9]{1}[a-zA-Z0-9]{1,}@[a-z]{5,}.[a-z]{2,3}$/.test(
+    mail
+  );
+  if (fnPwdValidate() && mailValid) {
+    eve.target.submit();
+  } else if (!mailValid) {
+    document.querySelector("#mailError").style.display = "flex";
   }
 };

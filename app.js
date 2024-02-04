@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
 const dotenv = require("dotenv").config();
+const MongoStore = require("connect-mongo");
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use(
     secret: "cityFans app",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create(options),
     // cookie: { secure: true },
   })
 );

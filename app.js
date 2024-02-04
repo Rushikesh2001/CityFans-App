@@ -58,7 +58,7 @@ app.use(
     secret: "cityFans app",
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create(options),
+    store: MongoStore.create(),
     // cookie: { secure: true },
   })
 );

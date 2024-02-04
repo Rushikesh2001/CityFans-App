@@ -214,7 +214,7 @@ app.get(
 //Securing endpoints
 
 //App is listening to request
-app.listen(80, () => {
+app.listen(80, "0.0.0.0", () => {
   console.log("App is listening......");
   console.log(`Server is live at ${appUrl}`);
 });

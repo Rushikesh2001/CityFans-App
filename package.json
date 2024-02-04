@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This package will consist of all the modules I will use in my project",
   "main": "app.js",
+  "engines": {
+    "node": ">=20.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"

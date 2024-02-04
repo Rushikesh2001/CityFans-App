@@ -58,7 +58,11 @@ app.use(
     secret: "cityFans app",
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create(),
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_CONN_URL,
+      dbName: "mciFanApp",
+      ttl: 1800,
+    }),
     // cookie: { secure: true },
   })
 );

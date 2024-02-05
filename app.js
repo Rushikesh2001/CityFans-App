@@ -95,7 +95,7 @@ const forgot = fs.readFileSync("static/forgot.html");
 const journey = fs.readFileSync("static/journey.html");
 
 //Handling request urls
-app.get("/", (req, res) => {
+app.get("./", (req, res) => {
   var fetchedNews;
   if (req.session.news) {
     fetchedNews = req.session.news;

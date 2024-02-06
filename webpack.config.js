@@ -1,4 +1,3 @@
-const path = require("path");
 var webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 
@@ -9,7 +8,7 @@ module.exports = {
   entry: "./app.js",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: "/",
   },
   module: {
     rules: [

@@ -1,8 +1,12 @@
 const path = require("path");
+var webpack = require("webpack");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
   target: "node",
-  entry: "app.js",
+  externalsPresets: { node: true }, // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()],
+  entry: "./app.js",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -10,10 +14,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.node$/,
+        use: "node-loader",
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: "babel-loader",
       },
     ],
   },
+  mode: "development",
 };

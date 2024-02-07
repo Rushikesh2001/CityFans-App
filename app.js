@@ -13,7 +13,6 @@ const app = express();
 
 //Declaring domain
 const appUrl = process.env.APP_URL;
-const port = process.env.PORT || 2020;
 
 //Including the webservice
 const getNews = require("./routes/getNews.js");
@@ -106,7 +105,7 @@ app.get("/", (req, res) => {
     console.log("Session does not exists");
     // Making api call
     try {
-      fetch(`${appUrl}:${port}/ManCity/News`, { method: "GET" })
+      fetch(`${appUrl}/ManCity/News`, { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
           req.session.news = data;
@@ -127,7 +126,7 @@ app.get("/pos", (req, res) => {
 });
 
 app.get("/players", (req, res) => {
-  fetch(`${appUrl}:${port}/ManCity/data/players`, { method: "GET" })
+  fetch(`${appUrl}/ManCity/data/players`, { method: "GET" })
     .then((response) => response.json())
     .then((playerList) => {
       res.status(200).render("players", { playerList });
@@ -141,7 +140,7 @@ app.get("/login", (req, res) => {
 app.get("/quiz", (req, res) => {
   // console.log(req.query.uid);
   if (req.session.isLoggedIn) {
-    fetch(`${appUrl}:${port}/data/QuickfireQuiz?uid=${req.session.mail}`)
+    fetch(`${appUrl}/data/QuickfireQuiz?uid=${req.session.mail}`)
       .then((response) => response.json())
       .then((responseObj) => {
         if (responseObj.accountId[0].isAdmin) {
@@ -221,7 +220,7 @@ app.get(
 //Securing endpoints
 
 //App is listening to request
-app.listen(port, "0.0.0.0", () => {
+app.listen(80, () => {
   console.log("App is listening......");
-  console.log(`Server is live at ${appUrl}:${port}`);
+  console.log(`Server is live at ${appUrl}`);
 });

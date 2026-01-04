@@ -37,6 +37,7 @@ router.post("/", function (req, res, next) {
         response[0].password,
         function (err, result) {
           if (result == true) {
+            console.log(response);
             if (response[0].isVerified === true) {
               req.session.isLoggedIn = true;
               req.session.mail = req.body.mail;

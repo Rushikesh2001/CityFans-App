@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const nodemailer = require("nodemailer");
 const { randomBytes } = require("node:crypto");
 const mongoClient = require("mongodb").MongoClient;
+const sendEmail = require("../common/mail");
 
 const appUrl = process.env.APP_URL;
 
@@ -26,32 +26,15 @@ async function dbConnection(mail, uid) {
   }
 }
 
-//Defining smtp configuration settings
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-    user: "rushikeshpalekar91@gmail.com",
-    pass: "rfgpvpitthobdoit",
-  },
-});
-
 // Making unique hash codes
 const uniqueId = randomBytes(128).toString("hex");
 
 async function smtpConnection(toMailId) {
-  // send mail with defined transport object
+  // send mail.
   try {
-    const info = await transporter.sendMail({
-      from: "rushikeshpalekar91@gmail.com", // sender address
-      to: `${toMailId}`, // list of receivers
-      subject: "CityFans - Confirm E-mail Address", // Subject line
-      html: `Welcome<br/>Thanks for signing up with CityFans!<br/>You must follow this link to activate your account:<br/><a href='${appUrl}/accountVerify?id=${uniqueId}'>${appUrl}/accountVerify?id=${uniqueId}<a/>`, // html body
-    });
-
-    console.log("Message sent: %s", info.messageId);
+    const message = await sendEmail(toMailId, 'CityFans - Confirm E-mail Address', `Welcome<br/>Thanks for signing up with CityFans!<br/>You must follow this link to activate your account:<br/><a href='${appUrl}/accountVerify?id=${uniqueId}'>${appUrl}/accountVerify?id=${uniqueId}<a/>` );
+    
+    console.log("Message sent: ", message);
   } catch (error) {
     console.log(error);
   }
